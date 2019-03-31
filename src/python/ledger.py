@@ -50,3 +50,30 @@ class Ledger:
         for asset in data:
             print('Asset id = {}, balance = {}'.format(
                 asset.asset_id, asset.balance))
+
+    def init(self, sawmills):
+        tx = self.iroha.transaction([
+            self.iroha.command('CreateAccount', account_name=sawmill.account_name, domain_id=sawmill.domain,
+                               public_key=sawmill.public_key)
+            for sawmill in sawmills
+        ])
+        IrohaCrypto.sign_transaction(tx, self.admin_private_key)
+        print(self.send_transaction_and_print_status(tx))
+
+        print("=" * 20)
+        tx_commands = []
+        for i in sawmills:
+            for j in self.woods:
+                print(f"{i.account_name}: {j}")
+                tx_commands.append(self.iroha.command('TransferAsset', src_account_id='admin@test',
+                                                      dest_account_id=f'{i.account_name}@{self.domain_name}',
+                                                      asset_id=f'{j}#{self.domain_name}',
+                                                      amount=str(randint(1, 10))))
+        print("=" * 20)
+        tx = self.iroha.transaction(tx_commands)
+        IrohaCrypto.sign_transaction(tx, self.admin_private_key)
+        print(self.send_transaction_and_print_status(tx))
+        self.get_admin_details()
+        print("=" * 20)
+        for i in sawmills:
+            print(f'{i.account_name}: {i.get_cattle()}')

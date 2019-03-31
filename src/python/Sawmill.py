@@ -1,3 +1,5 @@
+from random import randint
+
 from iroha import Iroha, IrohaCrypto
 
 
