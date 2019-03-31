@@ -5,6 +5,8 @@ import binascii
 from random import randint
 from itertools import product
 
+from src.python import config
+
 
 class Ledger:
     def __init__(self):
@@ -12,11 +14,8 @@ class Ledger:
         self.admin_private_key = 'f101537e319568c765b2cc89698325604991dca57b9716b58016b253506cab70'
         self.iroha = Iroha('admin@test')
         self.net = IrohaGrpc()
-        self.woods = [
-            "birch",
-            "oak",
-            "pine",
-            "maple"]  # uses as assets
+
+        self.woods = list(map(config.to_lower_case_only_letters, config.woods))  # uses as assets
         self.commands = [
             self.iroha.command('CreateDomain', domain_id=self.domain_name, default_role='user'),
             *[self.iroha.command('CreateAsset', asset_name=wood,
@@ -51,4 +50,3 @@ class Ledger:
         for asset in data:
             print('Asset id = {}, balance = {}'.format(
                 asset.asset_id, asset.balance))
-
