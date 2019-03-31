@@ -17,17 +17,20 @@ def init():
         for sawmill in sawmills
     ])
     IrohaCrypto.sign_transaction(tx, ledger.admin_private_key)
-    ledger.send_transaction_and_print_status(tx)
+    print(ledger.send_transaction_and_print_status(tx))
 
-    tx = ledger.iroha.transaction([
-        ledger.iroha.command('TransferAsset', src_account_id='admin@test', dest_account_id=f'{name}@{domain_name}',
-                             asset_id=f'{asset}#{ledger.domain_name}', amount=str(randint(1, 10)))
-        for asset, name in product(ledger.woods, sawmill_names)
-    ])
-    IrohaCrypto.sign_transaction(tx, ledger.admin_private_key)
-    ledger.send_transaction_and_print_status(tx)
+    for i in sawmills:
+        for j in ledger.woods:
+            print(f"{i.account_name}: {j}")
+            tx = ledger.iroha.transaction([ledger.iroha.command('TransferAsset', src_account_id='admin@test', dest_account_id=f'{i.account_name}@{ledger.domain_name}',
+                                                    asset_id=f'{j}#{ledger.domain_name}', amount=str(randint(1, 10)))])
+            IrohaCrypto.sign_transaction(tx, ledger.admin_private_key)
+            print(ledger.send_transaction_and_print_status(tx))
+
     ledger.get_admin_details()
+    for i in sawmills:
+        print(f'{i.account_name}: {i.get_cattle()}')
 
 
 if __name__ == '__main__':
-    pass
+    init()

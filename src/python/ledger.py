@@ -25,14 +25,14 @@ class Ledger:
         ]
         tx = IrohaCrypto.sign_transaction(
             self.iroha.transaction(self.commands), self.admin_private_key)
-        self.send_transaction_and_print_status(tx)
+        print(self.send_transaction_and_print_status(tx))
         self.get_admin_details()
         tx = self.iroha.transaction(
             [self.iroha.command('AddAssetQuantity', asset_id=f'{wood}#{self.domain_name}', amount='100')
              for wood in self.woods]
         )
         IrohaCrypto.sign_transaction(tx, self.admin_private_key)
-        self.send_transaction_and_print_status(tx)
+        print(self.send_transaction_and_print_status(tx))
         self.get_admin_details()
 
     def send_transaction_and_print_status(self, transaction):
