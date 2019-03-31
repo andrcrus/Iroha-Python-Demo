@@ -9,11 +9,14 @@ from src.python.ledger import Ledger
 
 app = Flask(__name__)
 
-ledger = Ledger()
+ledger = Ledger(None)
 sawmill_names = list(map(config.to_lower_case_only_letters, config.sawmill_names))
 sawmills = [Sawmill(name, ledger.domain_name, ledger) for name in sawmill_names]
+ledger.sawmills = sawmills
+
+sawmills_by_name = zip(sawmill_names, sawmills)
 
 
 if __name__ == '__main__':
-    ledger.init(sawmills)
+    ledger.init_ledger()
     app.run('0.0.0.0')
