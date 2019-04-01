@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Hello from Flask</title>
+    {% endblock %}
+</head>
+<body>
+<h1>Send page!</h1>
+<p>Amount of assets:</p>
+{% for asset, balance in assets_items.items() %}
+<p>{{ asset }} : {{  balance  }}</p>
+{% endfor %}
+<form method="post" action="/send">
+    <select name='accountFrom'>
+        {% for accountFrom in accountsFrom %}
+        <option value="{{accountFrom}}">{{accountFrom}}</option>
+        {% endfor %}}
+    </select>
+    <select name='accountTo'>
+        {% for accountTo in accountsTo %}
+        <option value="{{accountTo}}">{{accountTo}}</option>
+        {% endfor %}}
+    </select>
+    <select name='asset'>
+        {% for asset in assets %}
+        <option value="{{asset}}">{{asset}}</option>
+        {% endfor %}}
+    </select>
+    <input type="number" name='amount'  value="0"/>
+    <input type="submit" value="Submit" name="Send coins"/>
+</form>
+<h2>History:</h2>
+{% for i in history %}
+<p>{{i}}</p>
+{% endfor %}
+</body>
+
+</html>

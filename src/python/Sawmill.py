@@ -11,7 +11,7 @@ class Sawmill:
         self.iroha = Iroha(self.full_name)
         self.ledger = ledger
 
-    def get_cattle(self):
+    def get_woods_balance(self):
         query = self.iroha.query('GetAccountAssets', account_id=self.full_name)
         IrohaCrypto.sign_query(query, self.__private_key)
 
@@ -34,4 +34,4 @@ class Sawmill:
             ]
         )
         IrohaCrypto.sign_transaction(tx, self.__private_key)
-        return self.ledger.send_transaction_and_print_status(tx)
+        return self.ledger.send_transaction_and_log_status(tx)
