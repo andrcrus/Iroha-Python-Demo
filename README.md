@@ -19,11 +19,11 @@ irohad --config config.docker --genesis_block genesis.block --keypair_name node0
 This command initializes a ledger, creates 10000/len(sawmills) (4 by default) pieces of wood for admin, gives out random amount of wood to every sawmill. Name and amount of wood and sawmills can be changed by editing src/python/config.py. 
 
 API description and examples:
-*API:
-* GET /admin_details
-* GET /acc/<account>
-* GET /send
-* POST /send
+* API:
+** GET /admin_details
+** GET /acc/<account>
+** GET /send
+** POST /send
 
 ### Screenshots:
 ![GET /admin_details](pictures/admin_details.png)
