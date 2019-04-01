@@ -34,15 +34,15 @@ API description and examples:
 ***
 *LOG:
 
-
-* Transaction hash = b'd77eeff72ef3487630506efeda9f3599d769d8fbd65eaf9a7f4208616caf7309', creator = admin@test
-* \[('ENOUGH_SIGNATURES_COLLECTED', 9, 0), ('STATEFUL_VALIDATION_SUCCESS', 3, 0), ('COMMITTED', 5, 0)]
-* admin details...
-* Transaction hash = b'097eb7f95772b61258b1f6ae7d6998b5790d376f6954de6b093c0d542120162a', creator = admin@test
-* \[('ENOUGH_SIGNATURES_COLLECTED', 9, 0), ('STATEFUL_VALIDATION_SUCCESS', 3, 0), ('COMMITTED', 5, 0)]
-* admin details...
-* Asset id = birch#sawmill, balance = 2500
-* Asset id = oak#sawmill, balance = 2500
+```
+Transaction hash = b'd77eeff72ef3487630506efeda9f3599d769d8fbd65eaf9a7f4208616caf7309', creator = admin@test
+\[('ENOUGH_SIGNATURES_COLLECTED', 9, 0), ('STATEFUL_VALIDATION_SUCCESS', 3, 0), ('COMMITTED', 5, 0)]
+admin details...
+Transaction hash = b'097eb7f95772b61258b1f6ae7d6998b5790d376f6954de6b093c0d542120162a', creator = admin@test
+\[('ENOUGH_SIGNATURES_COLLECTED', 9, 0), ('STATEFUL_VALIDATION_SUCCESS', 3, 0), ('COMMITTED', 5, 0)]
+admin details...
+Asset id = birch#sawmill, balance = 2500
+Asset id = oak#sawmill, balance = 2500
 Asset id = pine#sawmill, balance = 2500
 Asset id = maple#sawmill, balance = 2500
 init ledger...
@@ -81,3 +81,4 @@ Transaction hash = b'82c803752ea16c8bd3128c78d8133e3df26580fd13e381c0fda22fe99a3
 Transaction hash = b'a6db3788998277412e145e9de35caee83c526aa145306c5d58b685c5263cdcd0', creator = pokales@sawmill
 127.0.0.1 - - [01/Apr/2019 22:31:24] "POST /send HTTP/1.1" 200 -
 127.0.0.1 - - [01/Apr/2019 22:31:25] "GET /send HTTP/1.1" 200 -
+```
