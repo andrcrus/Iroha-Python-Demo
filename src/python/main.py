@@ -6,8 +6,9 @@ from src.python.ledger import Ledger
 
 app = Flask(__name__)
 
-ledger = Ledger(None)
+
 sawmill_names = list(map(config.to_lower_case_only_letters, config.sawmill_names))
+ledger = Ledger(None, len(sawmill_names))
 sawmills = [Sawmill(name, ledger.domain_name, ledger) for name in sawmill_names]
 ledger.sawmills = sawmills
 history = []
