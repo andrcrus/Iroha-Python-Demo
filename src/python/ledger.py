@@ -1,9 +1,7 @@
-from iroha import Iroha, IrohaGrpc, IrohaCrypto
-from iroha.primitive_pb2 import can_set_my_account_detail, can_receive, can_transfer
-
 import binascii
 from random import randint
-from itertools import product
+
+from iroha import Iroha, IrohaGrpc, IrohaCrypto
 
 from src.python import config
 
@@ -25,17 +23,17 @@ class Ledger:
         ]
         tx = IrohaCrypto.sign_transaction(
             self.iroha.transaction(self.commands), self.admin_private_key)
-        print(self.send_transaction_and_print_status(tx))
+        print(self.send_transaction_and_log_status(tx))
         self.get_admin_details()
         tx = self.iroha.transaction(
             [self.iroha.command('AddAssetQuantity', asset_id=f'{wood}#{self.domain_name}', amount='100')
              for wood in self.woods]
         )
         IrohaCrypto.sign_transaction(tx, self.admin_private_key)
-        print(self.send_transaction_and_print_status(tx))
+        print(self.send_transaction_and_log_status(tx))
         self.get_admin_details()
 
-    def send_transaction_and_print_status(self, transaction):
+    def send_transaction_and_log_status(self, transaction):
         hex_hash = binascii.hexlify(IrohaCrypto.hash(transaction))
         print('Transaction hash = {}, creator = {}'.format(
             hex_hash, transaction.payload.reduced_payload.creator_account_id))
@@ -64,7 +62,7 @@ class Ledger:
             for sawmill in self.sawmills
         ])
         IrohaCrypto.sign_transaction(tx, self.admin_private_key)
-        print(self.send_transaction_and_print_status(tx))
+        print(self.send_transaction_and_log_status(tx))
 
         print("=" * 20)
         tx_commands = []
@@ -76,7 +74,7 @@ class Ledger:
                                                       amount=str(randint(1, 10))))
         tx = self.iroha.transaction(tx_commands)
         IrohaCrypto.sign_transaction(tx, self.admin_private_key)
-        print(self.send_transaction_and_print_status(tx))
+        print(self.send_transaction_and_log_status(tx))
         self.get_admin_details()
         print(self.get_accounts_info())
         print("=" * 20)
@@ -84,5 +82,5 @@ class Ledger:
     def get_accounts_info(self):
         result_dict = {}
         for i in self.sawmills:
-            result_dict[i.account_name] = i.get_cattle()
+            result_dict[i.account_name] = i.get_woods_balance()
         return result_dict

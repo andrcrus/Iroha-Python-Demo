@@ -20,7 +20,7 @@ def get_account_info(account_name):
     sawmill = sawmills_by_name.get(account_name)
     if sawmill is None:
         return make_response(jsonify({"error": "account is not found"}), 404)
-    return jsonify({account_name: sawmill.get_cattle()})
+    return jsonify({account_name: sawmill.get_woods_balance()})
 
 
 @app.route('/admin_details')
@@ -51,7 +51,7 @@ def transfer_wood():
     if amount == '':
         return make_response(jsonify({"error": "You must define amount."}), 403)
 
-    if int(amount) > int(accountFrom.get_cattle()[asset]):
+    if int(amount) > int(accountFrom.get_woods_balance()[asset]):
         history.append(f'{accountFrom.account_name} -> {accountTo.account_name}: {amount} of {asset} !NOT VALID!;')
         return make_response(jsonify({"error": "Oops...You have no resources..."}), 403)
     result = accountFrom.transfer_wood(accountTo.account_name, asset, int(amount))
