@@ -7,7 +7,7 @@ Simple demonstration of iroha app with GUI
 This example was created for the `Basics of Grid and Cloud Computing` course.
 
 ### How to deploy
-* clone this repo: `git clone https://github.com/andrcrus/Iroha-Python-Demo.git`
+* clone this repo: `git clone https://github.com/andrcrus/iroha-python-demo.git`
 * install python requirements: `pip install -r requirements.txt`
 Run `start_ledger.sh` to start Docker container with Iroha ([Iroha docs](https://iroha.readthedocs.io/en/latest/getting_started/index.html))
 * Execute this command inside container:
