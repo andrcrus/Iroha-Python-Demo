@@ -7,7 +7,7 @@ from src.python import config
 
 
 class Ledger:
-    def __init__(self, sawmills):
+    def __init__(self, sawmills, l):
         self.domain_name = "sawmill"
         self.admin_private_key = 'f101537e319568c765b2cc89698325604991dca57b9716b58016b253506cab70'
         self.iroha = Iroha('admin@test')
@@ -26,7 +26,8 @@ class Ledger:
         print(self.send_transaction_and_log_status(tx))
         self.get_admin_details()
         tx = self.iroha.transaction(
-            [self.iroha.command('AddAssetQuantity', asset_id=f'{wood}#{self.domain_name}', amount='100')
+            [self.iroha.command('AddAssetQuantity', asset_id=f'{wood}#{self.domain_name}',
+                                amount=str(10000//l))
              for wood in self.woods]
         )
         IrohaCrypto.sign_transaction(tx, self.admin_private_key)
@@ -71,7 +72,7 @@ class Ledger:
                 tx_commands.append(self.iroha.command('TransferAsset', src_account_id='admin@test',
                                                       dest_account_id=f'{i.account_name}@{self.domain_name}',
                                                       asset_id=f'{j}#{self.domain_name}',
-                                                      amount=str(randint(1, 10))))
+                                                      amount=str(randint(1, 100))))
         tx = self.iroha.transaction(tx_commands)
         IrohaCrypto.sign_transaction(tx, self.admin_private_key)
         print(self.send_transaction_and_log_status(tx))
