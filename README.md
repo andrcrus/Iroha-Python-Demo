@@ -20,6 +20,11 @@ This command initializes a ledger, creates 10000/len(sawmills) (4 by default) pi
 
 API description and examples:
 *API:
+GET /admin_details
+GET /acc/<account>
+GET /send
+POST /send
+
 ### Screenshots:
 ![GET /admin_details](pictures/admin_details.png)
 
