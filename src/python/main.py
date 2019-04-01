@@ -23,9 +23,9 @@ def get_account_info(account_name):
     return jsonify({account_name: sawmill.get_woods_balance()})
 
 
-@app.route('/admin_details')
+@app.route('/admin_details', methods=['get'])
 def admin_details():
-    return ledger.get_admin_details()
+    return jsonify(ledger.get_admin_details())
 
 
 @app.route('/send', methods=['get'])
@@ -51,7 +51,7 @@ def transfer_wood():
     if amount == '':
         return make_response(jsonify({"error": "You must define amount."}), 403)
 
-    if int(amount) > int(accountFrom.get_woods_balance()[asset]):
+    if int(amount) > int(accountFrom.get_woods_balance()[asset]) or int(amount) <= 0:
         history.append(f'{accountFrom.account_name} -> {accountTo.account_name}: {amount} of {asset} !NOT VALID!;')
         return make_response(jsonify({"error": "Oops...You have no resources..."}), 403)
     result = accountFrom.transfer_wood(accountTo.account_name, asset, int(amount))
