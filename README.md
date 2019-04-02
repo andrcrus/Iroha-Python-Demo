@@ -2,7 +2,7 @@ Iroha Python Demo
 
 
 ******
-Simple demonstration of iroha app with GUI
+An application for wood exchange between sawmills based on Iroha technology with a simple Web UI
 
 This example was created for the `Basics of Grid and Cloud Computing` course.
 
